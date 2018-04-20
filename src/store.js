@@ -4,7 +4,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
-  actions: {},
+  actions: {
+    login(context) {
+      setTimeout(() => {
+        context.commit('login');
+      }, 1000)
+    }
+  },
   getters: {
     username: function (state) {
       return state.user.name;
@@ -17,12 +23,13 @@ export default new Vuex.Store({
       level: 0
     },
     loginFrag: false,
-    count:1
+    count: 1
   },
 
   mutations: {
-    login: function (state, isLogin) {
-      state.loginFrag = isLogin;
+    login(state) {
+      state.loginFrag = true;
+      state.user.name = '安详地笑了';
     }
   },
   strict: debug

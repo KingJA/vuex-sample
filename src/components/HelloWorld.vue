@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
-    <h1>{{msg}}</h1>
-    <h1>方式一：{{$store.state.count }}</h1>
-    <h1>方式二：{{ isLogin }}</h1>
-    <h1>方式三：{{ $store.state.user.name}}</h1>
+    <span>您好：{{ $store.state.user.name}}</span>
+    <span>{{ isLogin?'':"未登录" }}</span>
+    <input type="button" value="登录" v-if="!isLogin" @click="login"/>
+    <input type="button" value="异步登录" v-if="!isLogin" @click="loginAsync"/>
   </div>
 </template>
 
@@ -15,9 +15,17 @@
       }
     },
     computed: {
-      isLogin:function () {
+      isLogin: function () {
         // return this.$store.state.username;
         return this.$store.getters.isLogin;
+      }
+    },
+    methods: {
+      login() {
+        this.$store.commit('login');
+      },
+      loginAsync() {
+        this.$store.dispatch('login');
       }
     }
   }
